@@ -1,5 +1,5 @@
-# KNPUTSTEMDetector
-KNPUTSTEMDetector jest narzędziem umożliwiającym automatyczną detekcję oraz analizę pęcherzyków emulsji na obrazach uzyskanych spod mikroskopu.
+# DropSize 
+DropSize  jest narzędziem umożliwiającym automatyczną detekcję oraz analizę pęcherzyków emulsji na obrazach uzyskanych spod mikroskopu.
 
 
 # Instrukcja użytkowania
