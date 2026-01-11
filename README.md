@@ -76,5 +76,5 @@ test_bubble_pomiar_{data}_{godzina}.csv
 
 Program jest własnością koła naukowego KN PUT STEM, działającego na Politechnice Poznańskiej
 
-Autorzy programu: Kamil Dalil, Mateusz Frąckowiak, Michał Dulek, Wiktor Makowski
+Autorzy programu: inż. Kamil Dalil, inż. Mateusz Frąckowiak, mgr inż. Ewelina Warmbier-Wytykowska, inż. Michał Dulek, Wiktor Makowski
 
