@@ -1,5 +1,5 @@
 # DropSize 
-DropSize  jest narzędziem umożliwiającym automatyczną detekcję oraz analizę pęcherzyków emulsji na obrazach uzyskanych spod mikroskopu.
+DropSize  jest narzędziem umożliwiającym automatyczną detekcję oraz analizę kropel emulsji na obrazach uzyskanych spod mikroskopu.
 
 
 # Instrukcja użytkowania
@@ -20,7 +20,7 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
 ### Wczytywanie i skala obrazu
 
 - **Wybierz obraz**  
-  Pozwala na wybór obrazu, na którym będzie wykonywana detekcja pęcherzyków.
+  Pozwala na wybór obrazu, na którym będzie wykonywana detekcja kropel.
 
 - **Skala obrazu [µm/piksel]**  
   Pole umożliwiające ręczne podanie skali obrazu.
@@ -37,14 +37,14 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
 
 ---
 
-### Detekcja i edycja pęcherzyków
+### Detekcja i edycja kropel
 
 - **Uruchom detekcję**  
-  Oznacza wykryte pęcherzyki na obrazie oraz zapisuje dane pomiarowe do pliku `.csv`.
+  Oznacza wykryte krople na obrazie oraz zapisuje dane pomiarowe do pliku `.csv`.
 
 - **Dodaj kroplę**  
-  Funkcja umożliwiająca ręczne dodanie oznaczenia pęcherzyka poprzez:
-  1. Kliknięcie w środek pęcherzyka
+  Funkcja umożliwiająca ręczne dodanie oznaczenia kropel poprzez:
+  1. Kliknięcie w środek kropli
   2. Kliknięcie na jego krawędź (wyznaczenie promienia)
 
 ---
@@ -52,10 +52,10 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
 ### Analiza wyników
 
 - **Histogram ilościowy / częstościowy**  
-  Wyświetla histogram ilościowy lub częstościowy średnic pęcherzyków.
+  Wyświetla histogram ilościowy lub częstościowy średnic lropel.
 
 - **Średnica Sautera**  
-  Oblicza średnicę Sautera dla analizowanych pęcherzyków.
+  Oblicza średnicę Sautera dla analizowanych kropel.
 
 ---
 
