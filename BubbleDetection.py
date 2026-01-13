@@ -11,7 +11,7 @@ import os
 class BubbleDetectorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Detektor bąbelków")
+        self.root.title("DropSize")
 
         # --- Przyciski i interfejs ---
         # Górny kontener na przyciski
@@ -54,13 +54,13 @@ class BubbleDetectorApp:
         self.btn_run = tk.Button(middle_frame, text="Uruchom detekcję", command=self.run_detection)
         self.btn_run.pack(pady=10)
 
-        self.btn_add_bubble = tk.Button(middle_frame, text="Dodaj bąbelek", command=self.add_bubble)
+        self.btn_add_bubble = tk.Button(middle_frame, text="Dodaj kroplę", command=self.add_bubble)
         self.btn_add_bubble.pack(pady=5)
 
         frame_hist = tk.Frame(middle_frame)
         frame_hist.pack(pady=10)
 
-        tk.Label(frame_hist, text="Histogram średnic bąbelków:", anchor="center").pack()
+        tk.Label(frame_hist, text="Histogram średnic kropel:", anchor="center").pack()
         self.btn_hist = tk.Button(frame_hist, text="Histogram ilościowy", command= lambda: self.show_histogram(type='count'))
         self.btn_hist.pack(side=tk.LEFT,pady=5)
 
@@ -164,9 +164,9 @@ class BubbleDetectorApp:
         self.save_csv(circles_data)
         self.draw_bubbles()
         self.update_sauter_label(circles_data)
-        self.label.config(text="Detekcja zakończona – kliknij bąbelek, aby go usunąć", fg="green")
+        self.label.config(text="Detekcja zakończona - kliknij kroplę, aby ją usunąć", fg="green")
 
-        # Kliknięcie usuwa bąbelek
+        # Kliknięcie usuwa kroplę
         def on_click(event):
             if event.xdata is None or event.ydata is None:
                 return
@@ -188,7 +188,7 @@ class BubbleDetectorApp:
             new_data = [(i + 1, 2 * b['radius'] * scale) for i, b in enumerate(self.bubble_circles)]
             self.save_csv(new_data)
             self.update_sauter_label(new_data)
-            self.label.config(text="Zaktualizowano dane po usunięciu bąbelka", fg="blue")
+            self.label.config(text="Zaktualizowano dane po usunięciu kropli", fg="blue")
 
         self.figure.canvas.mpl_connect('button_press_event', on_click)
 
@@ -221,7 +221,7 @@ class BubbleDetectorApp:
                 writer.writerow([index, round(diameter, 2)])
 
 
-    # --- Rysowanie bąbelków ---
+    # --- Rysowanie kropli ---
     def draw_bubbles(self):
         im = cv2.imread(self.image_path)
         im_rgb = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
@@ -237,7 +237,7 @@ class BubbleDetectorApp:
         self.figure = plt.Figure(figsize=(8, 6))
         ax = self.figure.add_subplot(111)
         ax.imshow(im_rgb)
-        ax.set_title("Wykryte bąbelki")
+        ax.set_title("Wykryte krople")
         ax.axis("off")
 
         self.canvas = FigureCanvasTkAgg(self.figure, master=self.canvas_frame)
@@ -261,7 +261,7 @@ class BubbleDetectorApp:
             cv2.circle(output, (int(x), int(y)), r, (0, 255, 0), 2)
 
         ax.imshow(output)
-        ax.set_title("Wykryte bąbelki")
+        ax.set_title("Wykryte krople")
         ax.axis("off")
         self.canvas.draw()
 
@@ -285,7 +285,7 @@ class BubbleDetectorApp:
         else:
             self.sauter_label = tk.Label(
                 self.sauter_frame,
-                text="Brak wykrytych bąbelków",
+                text="Brak wykrytych kropel",
                 font="TkDefaultFont", fg="red", anchor="center", justify="center",
                 relief=tk.RAISED, bg="#f0f0f0"
             )
@@ -293,7 +293,7 @@ class BubbleDetectorApp:
         self.sauter_label.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.9)
 
 
-    # --- Dodanie nowego bąbelka ręcznie ---
+    # --- Dodanie nowej kropli ręcznie ---
     def add_bubble(self):
         if not self.image_path:
             self.label.config(text="Nie wybrano obrazu!", fg="red")
@@ -312,9 +312,9 @@ class BubbleDetectorApp:
             cv2.circle(im_rgb, (int(x), int(y)), r, (0, 255, 0), 2)
 
         h, w = im.shape[:2]
-        plt.figure("Dodaj bąbelek – kliknij środek, potem krawędź")
+        plt.figure("Dodaj krople - kliknij środek, potem krawędź kropli")
         plt.imshow(im_rgb, extent=(0, w, h, 0))
-        plt.title("Kliknij środek bąbelka, a następnie punkt na jego krawędzi")
+        plt.title("Kliknij środek kropli, a następnie punkt na jego krawędzi")
         points = plt.ginput(2)
         plt.close()
 
@@ -333,18 +333,18 @@ class BubbleDetectorApp:
         new_bubble = {'center': (x1, y1), 'radius': radius_px}
         self.bubble_circles.append(new_bubble)
         
-        # Sortowanie bąbelków po wielkości (od największego)
+        # Sortowanie kroepl po wielkości (od największej)
         self.bubble_circles.sort(key=lambda b: b['radius'], reverse=True)
         
         # Aktualizacja danych i pliku CSV
         circles_data = [(i + 1, 2 * b['radius'] * scale) for i, b in enumerate(self.bubble_circles)]
         self.save_csv(circles_data)
         
-        # Przerysowanie bąbelków i aktualizacja etykiety Sautera
+        # Przerysowanie kropel i aktualizacja etykiety Sautera
         self.redraw_bubbles()
         self.update_sauter_label(circles_data)
 
-        self.label.config(text=f"Dodano bąbelek o średnicy {micrometers:.2f} µm (zaktualizowano plik)", fg="green")
+        self.label.config(text=f"Dodano kroplę o średnicy {micrometers:.2f} µm (zaktualizowano plik)", fg="green")
 
 
     # --- Wyznaczanie skali obrazu ---
@@ -428,19 +428,19 @@ class BubbleDetectorApp:
         diameters_binned_pct = diameters_binned / total_bubbles * 100
 
         if type=='count':
-            plt.figure("Histogram średnic bąbelków")
+            plt.figure("Histogram średnic kropel")
             plt.hist(diameters, bins=bins, color='skyblue', edgecolor='black')
-            plt.title("Histogram ilościowy średnic bąbelków")
+            plt.title("Histogram ilościowy średnic kropel")
             plt.xlabel("Średnica (µm)")
-            plt.ylabel("Liczba bąbelków")
+            plt.ylabel("Liczba kropel")
             plt.tight_layout()
             plt.show()
 
         elif type=='frequency':
-            plt.figure("Histogram częstościowy średnic bąbelków")
+            plt.figure("Histogram częstościowy średnic kropel")
             plt.bar(bin_edges[:-1], diameters_binned_pct, width=np.diff(bin_edges), edgecolor='black', align='edge', color='salmon')
             plt.yticks(ticks = plt.yticks()[0],labels = [f"{int(tick)}%" for tick in plt.yticks()[0]])
-            plt.title("Histogram częstościowy średnic bąbelków")
+            plt.title("Histogram częstościowy średnic kropel")
             plt.xlabel("Średnica (µm)")
             plt.ylabel("Częstość występowania")
             plt.tight_layout()
