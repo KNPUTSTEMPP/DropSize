@@ -42,7 +42,7 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
 - **Uruchom detekcję**  
   Oznacza wykryte pęcherzyki na obrazie oraz zapisuje dane pomiarowe do pliku `.csv`.
 
-- **Dodaj bąbelek**  
+- **Dodaj kroplę**  
   Funkcja umożliwiająca ręczne dodanie oznaczenia pęcherzyka poprzez:
   1. Kliknięcie w środek pęcherzyka
   2. Kliknięcie na jego krawędź (wyznaczenie promienia)
