@@ -30,6 +30,16 @@ class BubbleDetectorApp:
         self.btn_select = tk.Button(top_frame, text="Wybierz obraz", command=self.load_image)
         self.btn_select.pack(pady=10, anchor="center")
 
+        # Wybierz skalę powiększenia obrazu
+        tk.Label(top_frame, text = "Powiększenie obrazu",anchor="center").pack()
+        self.image_xscale_var = tk.StringVar(value='10x')
+        self.scale_values_dropdown = ['2x', '4x', '10x','40x','100x']
+        self.scale_menu = tk.OptionMenu(top_frame,self.image_xscale_var,*self.scale_values_dropdown,command=self.scale_changed)
+        self.scale_values_map = {'2x':0.002680, '4x':0.001340, '10x':0.000532, '40x':0.000134, '100x':0.0000536}
+        self.scale_menu.pack(pady=5)
+
+        tk.Label(top_frame, text="--- LUB ustaw ręcznie ---", fg="#555").pack(pady=5)
+
         tk.Label(top_frame, text="Skala obrazu [µm/piksel]:", anchor="center").pack()
         self.scale_var = tk.DoubleVar(value=0.000532)  
         self.scale_entry = tk.Entry(top_frame, textvariable=self.scale_var, width=10, justify="center")
@@ -39,19 +49,11 @@ class BubbleDetectorApp:
         self.btn_enter_scale = tk.Button(top_frame, text="Wpisz skalę", command=self.enter_scale)
         self.btn_enter_scale.pack(pady=5)
 
-        self.btn_set_scale = tk.Button(top_frame, text="Ustal skalę", command=self.measure_scale)
+        self.btn_set_scale = tk.Button(top_frame, text="Ustal skalę ręcznie", command=self.measure_scale)
         self.btn_set_scale.pack(pady=5)
 
-        # Wybierz skalę powiększenia obrazu
-        tk.Label(top_frame, text = "Powiększenie obrazu",anchor="center").pack()
-        self.image_xscale_var = tk.StringVar(value='10x')
-        self.scale_values_dropdown = ['2x', '4x', '10x','40x','100x']
-        self.scale_menu = tk.OptionMenu(top_frame,self.image_xscale_var,*self.scale_values_dropdown,command=self.scale_changed)
-        self.scale_values_map = {'2x':0.002680, '4x':0.001340, '10x':0.000532, '40x':0.000134, '100x':0.0000536}
-        self.scale_menu.pack(pady=5)
-
         # Przyciski w środkowym kontenerze
-        self.btn_run = tk.Button(middle_frame, text="Uruchom detekcję", command=self.run_detection)
+        self.btn_run = tk.Button(middle_frame, text="Uruchom detekcję", command=self.run_detection, bg="#ff9999")
         self.btn_run.pack(pady=10)
 
         self.btn_add_bubble = tk.Button(middle_frame, text="Dodaj kroplę", command=self.add_bubble)
@@ -106,7 +108,8 @@ class BubbleDetectorApp:
         if file_path:
             self.image_path = file_path
             self.label.config(text=f"Wybrano plik: {os.path.basename(file_path)}", fg="green")
-
+            # Zmiana tła przycisku na zielone po załadowaniu zdjęcia
+            self.btn_run.config(bg="#90ee90")
 
     # --- Detekcja automatyczna ---
     def run_detection(self):
