@@ -57,6 +57,9 @@ class BubbleDetectorApp:
         self.btn_add_bubble = tk.Button(middle_frame, text="Dodaj kroplę", command=self.add_bubble)
         self.btn_add_bubble.pack(pady=5)
 
+        self.btn_save = tk.Button(middle_frame, text="Zapisz wyniki do CSV", command=self.save_results_manually)
+        self.btn_save.pack(pady=5)
+
         frame_hist = tk.Frame(middle_frame)
         frame_hist.pack(pady=10)
 
@@ -161,7 +164,6 @@ class BubbleDetectorApp:
                 circles_data.append((len(circles_data)+1, micrometers))
 
         self.bubble_circles = final_circles
-        self.save_csv(circles_data)
         self.draw_bubbles()
         self.update_sauter_label(circles_data)
         self.label.config(text="Detekcja zakończona - kliknij kroplę, aby ją usunąć", fg="green")
@@ -186,7 +188,6 @@ class BubbleDetectorApp:
 
             self.redraw_bubbles()
             new_data = [(i + 1, 2 * b['radius'] * scale) for i, b in enumerate(self.bubble_circles)]
-            self.save_csv(new_data)
             self.update_sauter_label(new_data)
             self.label.config(text="Zaktualizowano dane po usunięciu kropli", fg="blue")
 
@@ -194,31 +195,35 @@ class BubbleDetectorApp:
 
 
     # --- Zapis CSV ---
-    def save_csv(self, circles_data):
-        image_dir = os.path.dirname(self.image_path)
-        output_dir = os.path.join(image_dir, "output")
-        os.makedirs(output_dir, exist_ok=True)
+    def save_results_manually(self):
+        if not self.bubble_circles:
+            self.label.config(text="Brak danych do zapisania!", fg="red")
+            return
 
-        # Zapisz podstawowy plik wynikowy
-        filename_wo_ext = os.path.splitext(os.path.basename(self.image_path))[0]
-        output_csv_path = os.path.join(output_dir, filename_wo_ext + "_wynik.csv")
+        # Oblicz aktualne dane na podstawie zapisanych kropel i skali
+        scale = self.scale_var.get()
+        circles_data = [(i + 1, 2 * b['radius'] * scale) for i, b in enumerate(self.bubble_circles)]
 
-        with open(output_csv_path, mode='w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(["Indeks", "Średnica (mikrometry)"])
-            for index, diameter in circles_data:
-                writer.writerow([index, round(diameter, 2)])
+        # Otwórz okno dialogowe zapisu
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".csv",
+            filetypes=[("Pliki CSV", "*.csv"), ("Wszystkie pliki", "*.*")],
+            title="Zapisz wyniki pomiarów"
+        )
 
-        # Zapisz plik z timestampem
-        from datetime import datetime
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        timestamped_csv_path = os.path.join(output_dir, f"{filename_wo_ext}_pomiar_{timestamp}.csv")
-        
-        with open(timestamped_csv_path, mode='w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(["Indeks", "Średnica (mikrometry)"])
-            for index, diameter in circles_data:
-                writer.writerow([index, round(diameter, 2)])
+        if not file_path:
+            return  # Użytkownik anulował zapis
+
+        try:
+            with open(file_path, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(["Indeks", "Średnica (mikrometry)"])
+                for index, diameter in circles_data:
+                    writer.writerow([index, round(diameter, 2)])
+            
+            self.label.config(text=f"Zapisano wyniki w: {os.path.basename(file_path)}", fg="green")
+        except Exception as e:
+            self.label.config(text=f"Błąd zapisu: {e}", fg="red")
 
 
     # --- Rysowanie kropli ---
@@ -338,7 +343,6 @@ class BubbleDetectorApp:
         
         # Aktualizacja danych i pliku CSV
         circles_data = [(i + 1, 2 * b['radius'] * scale) for i, b in enumerate(self.bubble_circles)]
-        self.save_csv(circles_data)
         
         # Przerysowanie kropel i aktualizacja etykiety Sautera
         self.redraw_bubbles()
@@ -385,7 +389,6 @@ class BubbleDetectorApp:
         # Aktualizacja danych i plików CSV po zmianie skali
         if self.bubble_circles:
             circles_data = [(i + 1, 2 * b['radius'] * scale) for i, b in enumerate(self.bubble_circles)]
-            self.save_csv(circles_data)
             self.update_sauter_label(circles_data)
             self.label.config(text=f"Skala zmieniona z {old_scale:.3f} na {scale:.3f} µm/piksel. Zaktualizowano dane.", fg="green")
         else:
@@ -404,7 +407,6 @@ class BubbleDetectorApp:
             # Aktualizacja danych i plików CSV z nową skalą
             if self.bubble_circles:
                 circles_data = [(i + 1, 2 * b['radius'] * new_scale) for i, b in enumerate(self.bubble_circles)]
-                self.save_csv(circles_data)
                 self.update_sauter_label(circles_data)
                 self.label.config(text=f"Skala zaktualizowana na {new_scale:.3f} µm/piksel. Zaktualizowano dane.", fg="green")
             else:
