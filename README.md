@@ -18,22 +18,22 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
 ## Opis funkcji i przycisków
 
 ### Wczytywanie i skala obrazu
-
+  
 - **Wybierz obraz**  
   Pozwala na wybór obrazu, na którym będzie wykonywana detekcja kropel.
 
+- **Powiększenie obrazu (lista rozwijalna)**  
+  Wybór skali na podstawie powiększenia, w jakim wykonano zdjęcie.
+  
 - **Skala obrazu [µm/piksel]**  
   Pole umożliwiające ręczne podanie skali obrazu.
 
 - **Wpisz skalę**  
   Zapisuje wprowadzoną wartość skali do pamięci programu.
 
-- **Ustal skalę**  
+- **Ustal skalę ręcznie**  
   Umożliwia ręczne wyznaczenie skali poprzez zaznaczenie dwóch punktów na obrazie, a następnie podanie rzeczywistej odległości pomiędzy nimi (w µm).  
   Zalecane w przypadku obrazów o niestandardowej rozdzielczości.
-
-- **Powiększenie obrazu (lista rozwijalna)**  
-  Wybór skali na podstawie powiększenia, w jakim wykonano zdjęcie.
 
 ---
 
