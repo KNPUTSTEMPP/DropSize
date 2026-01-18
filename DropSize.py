@@ -289,7 +289,7 @@ class BubbleDetectorApp:
             d32 = numerator / denominator if denominator != 0 else 0
             self.sauter_label = tk.Label(
                 self.sauter_frame,
-                text=f"średnica Sautera\nd = {d32:.2f} µm",
+                text=f"średnica Sautera\nd = {d32:.5f} µm",
                 font="TkDefaultFont", fg="blue", anchor="center", justify="center",
                 relief=tk.RAISED, bg="#f0f0f0"
             )
