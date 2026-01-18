@@ -62,6 +62,9 @@ class BubbleDetectorApp:
         self.btn_save = tk.Button(middle_frame, text="Zapisz wyniki do CSV", command=self.save_results_manually)
         self.btn_save.pack(pady=5)
 
+        self.btn_save_image = tk.Button(middle_frame, text="Zapisz obraz z obrysami", command=self.save_detected_image)
+        self.btn_save_image.pack(pady=5)
+
         frame_hist = tk.Frame(middle_frame)
         frame_hist.pack(pady=10)
 
@@ -450,6 +453,33 @@ class BubbleDetectorApp:
             plt.ylabel("Częstość występowania")
             plt.tight_layout()
             plt.show()
+    
+    def save_detected_image(self):
+        if not self.image_path or not self.bubble_circles:
+            self.label.config(text="Brak obrazu lub detekcji do zapisania!", fg="red")
+            return
+    
+        image = cv2.imread(self.image_path)
+        output = image.copy()
+    
+        # TYLKO obrysy kropel
+        for bubble in self.bubble_circles:
+            x, y = bubble['center']
+            r = int(bubble['radius'])
+            cv2.circle(output, (int(x), int(y)), r, (0, 255, 0), 2)
+    
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".png",
+            filetypes=[("PNG", "*.png"), ("JPG", "*.jpg"), ("BMP", "*.bmp")],
+            title="Zapisz obraz z obrysami"
+        )
+    
+        if not file_path:
+            return
+    
+        cv2.imwrite(file_path, output)
+        self.label.config(text="Zapisano obraz z obrysami", fg="green")
+
 
 
 # --- Uruchomienie programu ---
