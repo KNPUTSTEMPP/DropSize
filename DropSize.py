@@ -225,7 +225,7 @@ class BubbleDetectorApp:
                 writer = csv.writer(file)
                 writer.writerow(["Indeks", "Średnica (mikrometry)"])
                 for index, diameter in circles_data:
-                    writer.writerow([index, round(diameter, 2)])
+                    writer.writerow([index, round(diameter, 5)])
             
             self.label.config(text=f"Zapisano wyniki w: {os.path.basename(file_path)}", fg="green")
         except Exception as e:
@@ -354,7 +354,7 @@ class BubbleDetectorApp:
         self.redraw_bubbles()
         self.update_sauter_label(circles_data)
 
-        self.label.config(text=f"Dodano kroplę o średnicy {micrometers:.2f} µm (zaktualizowano plik)", fg="green")
+        self.label.config(text=f"Dodano kroplę o średnicy {micrometers:.5f} µm (zaktualizowano plik)", fg="green")
 
 
     # --- Wyznaczanie skali obrazu ---
