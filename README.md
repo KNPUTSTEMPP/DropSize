@@ -66,7 +66,7 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
 ## Zapisywanie wyników
 
 Po uruchomieniu detekcji, możliwe jest zapisanie:
-  1. średnic kropel w pliku .csv
+  1. Średnic kropel w pliku .csv
   2. Obrazu wraz z naniesionymi obrysami kropel
 
 
