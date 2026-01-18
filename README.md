@@ -46,6 +46,10 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
   Funkcja umożliwiająca ręczne dodanie oznaczenia kropel poprzez:
   1. Kliknięcie w środek kropli
   2. Kliknięcie na jego krawędź (wyznaczenie promienia)
+ 
+- **Usuń kroplę**
+  Funkcja umożliwiająca ręczne usunięcie kropli poprzez:
+  1. Kliknięcie w obszar jej oznaczenia
 
 ---
 
@@ -61,18 +65,10 @@ Uwaga: Program został zbudowany przy użyciu PyInstaller. Niektóre programy an
 
 ## Zapisywanie wyników
 
-Po uruchomieniu detekcji, w katalogu, z którego został uruchomiony program, tworzony jest folder: **outputs**
+Po uruchomieniu detekcji, możliwe jest zapisanie:
+  1. średnic kropel w pliku .csv
+  2. Obrazu wraz z naniesionymi obrysami kropel
 
-W folderze tym zapisywane są pliki wynikowe w formacie `.csv`.
-
-### Nazewnictwo plików
-
-- Pierwszy pomiar:
-test_bubble_wynik.csv
-
-
-- Kolejne pomiary tego samego obrazu:
-test_bubble_pomiar_{data}_{godzina}.csv
 
 Program jest własnością koła naukowego KN PUT STEM, działającego na Politechnice Poznańskiej
 
