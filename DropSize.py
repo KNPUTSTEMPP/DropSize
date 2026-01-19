@@ -35,7 +35,7 @@ class BubbleDetectorApp:
         self.image_xscale_var = tk.StringVar(value='10x')
         self.scale_values_dropdown = ['2x', '4x', '10x','40x','100x']
         self.scale_menu = tk.OptionMenu(top_frame,self.image_xscale_var,*self.scale_values_dropdown,command=self.scale_changed)
-        self.scale_values_map = {'2x':0.002680, '4x':0.001340, '10x':0.000532, '40x':0.000134, '100x':0.0000536}
+        self.scale_values_map = {'2x':2.680, '4x':1.340, '10x':0.532, '40x':0.134, '100x':0.0536}
         self.scale_menu.pack(pady=5)
 
         tk.Label(top_frame, text="--- LUB ustaw ręcznie ---", fg="#555").pack(pady=5)
