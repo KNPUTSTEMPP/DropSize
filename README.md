@@ -72,5 +72,5 @@ Po uruchomieniu detekcji, możliwe jest zapisanie:
 
 Program jest własnością koła naukowego KN PUT STEM, działającego na Politechnice Poznańskiej
 
-Autorzy programu: inż. Kamil Dalil, inż. Mateusz Frąckowiak, mgr inż. Ewelina Warmbier-Wytykowska, inż. Michał Dulek, Wiktor Makowski
+Autorzy programu: inż. Kamil Dalil, inż. Mateusz Frąckowiak, mgr inż. Ewelina Warmbier-Wytykowska, dr hab. inż. Sylwia Różańska, mgr inż. Anna Martin, inż. Michał Dulek, Wiktor Makowski
 
